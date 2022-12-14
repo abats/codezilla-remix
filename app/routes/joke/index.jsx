@@ -1,20 +1,8 @@
 import {json} from "@remix-run/node";
-import {useLoaderData} from "@remix-run/react";
-
-export function links() {
-    return [
-        {
-            rel: "stylesheet",
-            href: "https://unpkg.com/modern-css-reset@1.4.0/dist/reset.min.css",
-        },
-    ];
-}
+import {Outlet, useLoaderData} from "@remix-run/react";
+import Search from "~/routes/joke/search";
 
 export const loader = async () => {
-    // return json([
-    //     { id: "1", name: "Pants" },
-    //     { id: "2", name: "Jacket" },
-    // ]);
 
     const res = await fetch("https://icanhazdadjoke.com/",{
         headers: {
@@ -28,7 +16,12 @@ export default function Joke() {
     const joke = useLoaderData();
     return (
         <div>
-            <h1>Joke</h1>
+            <Search />
+            <Outlet />
+            <hr/>
+            <h1 className="text-3xl font-bold underline">
+                Joke
+            </h1>
             <p>{ joke.joke }</p>
         </div>
     );
